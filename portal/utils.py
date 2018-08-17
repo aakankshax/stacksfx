@@ -23,7 +23,7 @@ class FaceRecogniser:
     actions = {}
 
     # Define Emotions
-    emotions = ["angry", "happy", "sad", "neutral"]
+    emotions = ["sad", "happy"]
 
 
     def __init__(self):
@@ -39,10 +39,10 @@ class FaceRecogniser:
 
         # Read Emotion-Song Mapping from Excel
         df = pandas.read_excel("EmotionLinks.xlsx") #open Excel file
-        self.actions["angry"] = [x for x in df.angry.dropna()] #We need de dropna() when columns are uneven in length, which creates NaN values at missing places. The OS won't know what to do with these if we try to open them.
+        #self.actions["angry"] = [x for x in df.angry.dropna()] #We need de dropna() when columns are uneven in length, which creates NaN values at missing places. The OS won't know what to do with these if we try to open them.
         self.actions["happy"] = [x for x in df.happy.dropna()]
         self.actions["sad"] = [x for x in df.sad.dropna()]
-        self.actions["neutral"] = [x for x in df.neutral.dropna()]
+        #self.actions["neutral"] = [x for x in df.neutral.dropna()]
 
     def open_stuff(self, filename): 
         """Open the file using native system player"""
@@ -169,7 +169,7 @@ class FaceRecogniser:
 
 class update:
 
-    # emotions = ["neutral", "anger", "disgust", "fear", "happy", "sadness", "surprise"] #Emotion list
+    # emotions = ["sad", "happy"] #Emotion list
     fishface = cv2.face.FisherFaceRecognizer_create() #Initialize fisher face classifier
     emotions = []
     data = {}
@@ -230,7 +230,7 @@ class update:
             self.fishface.read("trained_emoclassifier.xml")
         except:
             print("Training Initial Emotions")
-            self.emotions = ["anger", "disgust", "fear", "happy", "neutral", "sad", "surprise"]
+            self.emotions = ["happy", "sad"]
             self.run_recognizer()
         
         print("Updating Model")
